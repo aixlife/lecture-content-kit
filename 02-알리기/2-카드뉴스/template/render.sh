@@ -23,6 +23,12 @@ find_chrome() {
   done
 }
 
+# Git Bash(윈도우)에서는 /c/... 경로를 Chrome이 못 읽는다. cygpath 가 있으면 C:/... 형태로 바꾼다.
+file_url() {
+  local p="$1"
+  if command -v cygpath >/dev/null 2>&1; then printf 'file:///%s' "$(cygpath -m "$p")"; else printf 'file://%s' "$p"; fi
+}
+
 CHROME_BIN="$(find_chrome)"
 if [ -z "$CHROME_BIN" ]; then
   echo "Chrome/Chromium/Edge를 찾지 못했습니다. CHROME=브라우저경로 bash render.sh 로 지정하세요." >&2
@@ -52,14 +58,23 @@ if [ $# -gt 0 ]; then NUMS=("$@"); else
   NUMS=(); for f in card-*.html; do n="${f#card-}"; NUMS+=("${n%.html}"); done
 fi
 
+RC=0
 for n in "${NUMS[@]}"; do
   src="$DIR/card-$n.html"
-  [ -f "$src" ] || { echo "card-$n: 파일 없음"; continue; }
+  [ -f "$src" ] || { echo "card-$n: 파일 없음"; RC=1; continue; }
+  url="$(file_url "$src")"
   rm -f "$OUT/card-$n.png" "$PROFILE/dom.html"
-  run_until 40 '[ -s "$OUT/card-$n.png" ]' "$CHROME_BIN" "${FLAGS[@]}" --screenshot="$OUT/card-$n.png" "file://$src" >/dev/null 2>&1
-  run_until 40 'grep -q "</html>" "$PROFILE/dom.html" 2>/dev/null' "$CHROME_BIN" "${FLAGS[@]}" --dump-dom "file://$src" >"$PROFILE/dom.html" 2>/dev/null
+  run_until 40 '[ -s "$OUT/card-$n.png" ]' "$CHROME_BIN" "${FLAGS[@]}" --screenshot="$OUT/card-$n.png" "$url" >/dev/null 2>&1
+  run_until 40 'grep -q "</html>" "$PROFILE/dom.html" 2>/dev/null' "$CHROME_BIN" "${FLAGS[@]}" --dump-dom "$url" >"$PROFILE/dom.html" 2>/dev/null
   check="$(grep -o 'data-check="[^"]*"' "$PROFILE/dom.html" 2>/dev/null | sed 's/&quot;/"/g')"
-  [ -n "$check" ] || check="(넘침 검사 결과를 받지 못했습니다. PNG를 열어 눈으로 확인하세요)"
-  if [ -f "$OUT/card-$n.png" ]; then echo "card-$n: 저장됨 → output/card-$n.png  $check"; else echo "card-$n: 렌더 실패"; fi
+  if [ ! -f "$OUT/card-$n.png" ]; then
+    echo "card-$n: 렌더 실패 (PNG가 만들어지지 않았습니다)"; RC=1; continue
+  fi
+  if [ -z "$check" ]; then
+    echo "card-$n: 경고 — 넘침 검사 결과를 받지 못했습니다. PNG가 오류 화면일 수 있으니 output/card-$n.png 를 열어 확인하세요." >&2
+    RC=1; continue
+  fi
+  echo "card-$n: 저장됨 → output/card-$n.png  $check"
 done
 echo "검사 결과 보는 법: problems 가 [] 이면 글자가 카드 밖으로 넘치지 않은 것입니다. faces 에 loaded 가 보이면 글꼴이 적용된 것입니다."
+exit $RC
