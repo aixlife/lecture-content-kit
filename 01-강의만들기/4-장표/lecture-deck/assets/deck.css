@@ -1,0 +1,45 @@
+/* ReelForge(gongnyang, Apache-2.0) DESIGN-RULES를 옮겨 적은 규칙 · 아이보리·코발트 팔레트
+   박스/카드/패널 금지 · 타이포 3단 · 씬당 액센트 1곳 · 성공색은 마지막 봉인 1회
+   모션 문법: 발표자가 누를 때만 터진다 (상시 모션 금지) */
+:root{
+  --bg:#F7F4EC; --ink:#131313; --dim:#6B675F; --accent:#0047AB; --seal:#1E7A4C;
+  --d:clamp(38px,5.6vw,86px); --l:clamp(20px,2.3vw,34px); --m:clamp(13px,1.15vw,17px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard","Apple SD Gothic Neo",-apple-system,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow:hidden;
+  word-break:keep-all;overflow-wrap:break-word;text-wrap:pretty}
+#stage{position:fixed;inset:0}
+section{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(48px,7vw,140px);opacity:0;visibility:hidden;
+  transition:opacity .42s ease,transform .42s ease;transform:translateY(14px)}
+section.on{opacity:1;visibility:visible;transform:none}
+.kicker{font-size:var(--m);letter-spacing:.18em;color:var(--dim);text-transform:uppercase;margin-bottom:22px}
+h1{font-size:var(--d);font-weight:800;line-height:1.14;letter-spacing:-.022em;text-wrap:balance}
+h2{font-size:calc(var(--d)*.72);font-weight:800;line-height:1.2;letter-spacing:-.02em;text-wrap:balance}
+p.lead{font-size:var(--l);line-height:1.6;color:var(--dim);margin-top:30px;max-width:34em}
+p.lead .s{display:block}
+p.lead .s+.s{margin-top:.42em}
+.acc{color:var(--accent)}
+ul{margin-top:36px;list-style:none;max-width:38em}
+li{font-size:var(--l);line-height:1.5;color:var(--ink);padding:11px 0 11px 34px;position:relative}
+li::before{content:"";position:absolute;left:6px;top:.75em;width:12px;height:1px;background:var(--dim)}
+li small{display:block;font-size:var(--m);color:var(--dim);margin-top:7px;line-height:1.5}
+ol.q{margin-top:30px;list-style:none;counter-reset:q;max-width:44em}
+ol.q li{font-size:clamp(15px,1.55vw,23px);line-height:1.5;color:var(--ink);
+  padding:10px 0 10px 44px;position:relative;counter-increment:q}
+ol.q li::before{content:counter(q);position:absolute;left:0;top:11px;
+  font-size:clamp(12px,1.1vw,15px);font-weight:800;color:var(--accent);
+  width:28px;text-align:right;opacity:.85}
+.big{font-size:calc(var(--d)*1.12);font-weight:800;line-height:1.1;letter-spacing:-.03em}
+.chapter h1{font-size:calc(var(--d)*1.25)}
+.chapter .kicker{color:var(--accent)}
+.seal h1{color:var(--seal)}
+.note{margin-top:34px;font-size:var(--m);color:var(--dim);letter-spacing:.02em}
+a.jump{position:absolute;left:clamp(48px,7vw,140px);bottom:clamp(40px,5vw,80px);
+  font-size:var(--m);color:var(--dim);text-decoration:none;letter-spacing:.04em;
+  border-bottom:1px solid #D9D3C6;padding-bottom:5px}
+a.jump:hover{color:var(--accent);border-color:var(--accent)}
+#hud{position:fixed;right:26px;bottom:20px;font-size:12px;color:#9A958B;letter-spacing:.12em;z-index:9}
+#bar{position:fixed;left:0;top:0;height:2px;background:var(--accent);width:0;transition:width .42s ease;z-index:9}

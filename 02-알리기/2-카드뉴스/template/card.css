@@ -1,0 +1,43 @@
+/* 카드뉴스 공통 스타일 · 1080x1350 · 색은 :root 세 줄(--bg/--ink/--accent)만 바꾸면 됩니다 */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+:root {
+  --bg: #F7F4EC;       /* 배경: 아이보리 */
+  --panel: #FFFFFF;    /* 위쪽 밝은 패널 */
+  --ink: #131313;      /* 글자 */
+  --accent: #0047AB;   /* 강조: 코발트, 한 장에 한 곳 */
+  --body: #55524C;
+  --muted: #7A766E;
+  --line: #D9D3C6;
+  --gutter: 88px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1350px; background: var(--bg); overflow: hidden; }
+body { font-family: "Pretendard", sans-serif; color: var(--ink); word-break: keep-all; -webkit-font-smoothing: antialiased; }
+
+.card { position: relative; width: 1080px; height: 1350px; overflow: hidden; background: var(--bg); }
+
+/* 상단 밝은 패널 */
+.panel {
+  position: absolute; left: 64px; right: 64px; top: 64px;
+  background: var(--panel); color: var(--ink);
+  border-radius: 36px; padding: 60px 72px; box-shadow: 0 2px 0 rgba(19,19,19,.06);
+  height: 620px; display: flex; flex-direction: column; justify-content: center;
+}
+.panel-title { font-size: 48px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.25; white-space: nowrap; }
+
+.list { margin-top: 48px; display: flex; flex-direction: column; gap: 32px; }
+.list li { list-style: none; display: flex; align-items: center; gap: 30px; font-size: 42px; font-weight: 600; letter-spacing: -0.02em; white-space: nowrap; }
+.icon { flex: none; width: 84px; height: 84px; border-radius: 20px; border: 3px solid var(--ink); display: grid; place-items: center; background: var(--bg); }
+.icon svg { width: 44px; height: 44px; }
+.icon.muted { border-color: #B5B0A8; background: transparent; }
+
+/* 하단 어두운 영역 */
+.lower { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 150px; display: flex; flex-direction: column; align-items: flex-start; }
+.badge { width: 68px; height: 68px; border-radius: 50%; background: var(--ink); color: var(--bg); font-size: 38px; font-weight: 800; display: grid; place-items: center; margin-bottom: 34px; line-height: 1; }
+.label { font-size: 32px; font-weight: 700; color: var(--muted); letter-spacing: 0.02em; margin-bottom: 28px; }
+.title { font-size: 80px; font-weight: 800; line-height: 1.22; letter-spacing: -0.035em; white-space: nowrap; }
+.title .hl { color: var(--accent); }
+.body { margin-top: 34px; font-size: 32px; font-weight: 400; line-height: 1.6; color: var(--body); letter-spacing: -0.02em; white-space: nowrap; }
+
+.foot { position: absolute; right: var(--gutter); bottom: 60px; font-size: 24px; font-weight: 500; color: var(--muted); letter-spacing: -0.01em; }

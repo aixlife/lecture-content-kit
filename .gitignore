@@ -1,0 +1,21 @@
+# 비밀정보
+.env
+.env.*
+*.key
+*.pem
+
+# 설치물
+node_modules/
+
+# 결과물 (렌더한 이미지·영상은 각자 보관)
+output/
+내작업/
+*.mp4
+*.mov
+*.wav
+*.mp3
+*.m4a
+
+# 운영체제
+.DS_Store
+Thumbs.db
