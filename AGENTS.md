@@ -21,6 +21,7 @@
 
 ## 반드시 지킬 것
 
+- 만드는 모든 화면·장표·카드뉴스는 글꼴을 Pretendard로 한다. HTML을 만들 때 `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">`를 넣어 실제로 불러오게 하고, font-family 첫 자리에 Pretendard를 둔다.
 - **사용자 자료로만 쓴다.** 사용자가 준 강의자료, 녹음 받아쓴 글, 자주 받는 질문, 대화 내용이 재료다.
 - **없는 숫자·후기·성과·수강생 반응을 만들지 않는다.** 필요하면 빈칸 `[ ]`으로 두고 사용자에게 묻는다. 추측이면 추측이라고 표시한다.
 - **한 번에 끝내지 않는다.** 단계마다 결과를 보여주고 사용자 확인을 받은 뒤 다음 단계로 넘어간다. 구조 설계서 확인 전에는 장표를 만들지 않는다.

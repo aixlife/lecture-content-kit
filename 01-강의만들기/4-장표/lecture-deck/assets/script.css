@@ -1,3 +1,4 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 :root{--bg:#F7F4EC;--panel:#FFFFFF;--ink:#131313;--dim:#6B675F;--acc:#0047AB;--seal:#1E7A4C;--line:#E2DDD1}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:76px}
