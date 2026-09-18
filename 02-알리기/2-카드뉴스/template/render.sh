@@ -2,7 +2,9 @@
 # 카드뉴스 HTML → PNG (1080x1350)
 # 사용: bash render.sh            → 이 폴더의 card-*.html 전부
 #       bash render.sh 01 03      → 지정한 번호만
-# 결과: ../output/card-NN.png  (output 폴더는 깃에 올라가지 않습니다)
+# 결과: 이 스크립트가 있는 폴더의 한 단계 위 output/ 폴더
+#       키트를 그대로 받았다면 02-알리기/2-카드뉴스/output/card-NN.png  (output 폴더는 깃에 올라가지 않습니다)
+#       실행이 끝나면 저장된 전체 위치를 화면에 그대로 찍어 줍니다.
 # 필요: Chrome, Chromium, Edge 중 하나. 다른 위치에 있으면 CHROME=브라우저경로 bash render.sh
 set -uo pipefail
 cd "$(dirname "$0")"; DIR="$PWD"; OUT="$(dirname "$DIR")/output"
@@ -71,10 +73,10 @@ for n in "${NUMS[@]}"; do
     echo "card-$n: 렌더 실패 (PNG가 만들어지지 않았습니다)"; RC=1; continue
   fi
   if [ -z "$check" ]; then
-    echo "card-$n: 경고 — 넘침 검사 결과를 받지 못했습니다. PNG가 오류 화면일 수 있으니 output/card-$n.png 를 열어 확인하세요." >&2
+    echo "card-$n: 경고 — 넘침 검사 결과를 받지 못했습니다. PNG가 오류 화면일 수 있으니 $OUT/card-$n.png 를 열어 확인하세요." >&2
     RC=1; continue
   fi
-  echo "card-$n: 저장됨 → output/card-$n.png  $check"
+  echo "card-$n: 저장됨 → $OUT/card-$n.png  $check"
 done
 echo "검사 결과 보는 법: problems 가 [] 이면 글자가 카드 밖으로 넘치지 않은 것입니다. faces 에 loaded 가 보이면 글꼴이 적용된 것입니다."
 exit $RC
